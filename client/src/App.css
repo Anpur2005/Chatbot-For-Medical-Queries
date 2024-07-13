@@ -1,0 +1,159 @@
+/* General styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  text-align: center;
+  background-color: rgb(185, 255, 255);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #eaf3f7;
+  padding: 20px 40px;
+}
+
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.nav a {
+  margin: 0 10px;
+  text-decoration: none;
+  color: #333;
+}
+
+.appointment-btn {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+.hero {
+  display: flex;
+  align-items:center;
+  justify-content: space-between;
+  padding: 40px;
+  
+  /* background-image: url(img1.jpg);
+  background-size: cover; */
+  background: linear-gradient(to right, #a67c52 50%, #5d4037 50%);
+  height: 300px;
+  text-align: left;
+}
+
+.hero-content {
+  flex: 1;
+  max-width: 50%;
+  margin-left: 60px;
+}
+
+.hero-content h2 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.hero-content p {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.read-more {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+ 
+.info-cards {
+  display: flex;
+  justify-content: space-around;
+  padding: 40px;
+  background: #e06632c6;
+}
+
+.card {
+  background: #d6d5d5f5;
+  padding: 20px;
+  border-radius: 10px;
+  width: 30%;
+}
+
+.card h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.card p {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.contact {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.timetable-btn {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+} 
+
+/* .landing-page {
+  font-family: Arial, sans-serif;
+  color: white;
+  text-align: center;
+}
+
+
+
+.header {
+  background: linear-gradient(to right, #a67c52, #5d4037);
+  padding: 50px 0;
+}
+
+.header h1 {
+  font-size: 2.5em;
+  margin: 0;
+}
+
+.header p {
+  font-size: 1.2em;
+}
+
+.main-content {
+  background: linear-gradient(to right, #a67c52, #5d4037);
+  padding: 50px 0;
+}
+
+.cta-section {
+  margin: 20px 0;
+}
+
+.cta-button {
+  background-color: #ff7043;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  font-size: 1em;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.cta-button:hover {
+  background-color: #ff5722;
+} */
