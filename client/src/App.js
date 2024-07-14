@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Auth from './Components/Auth';
 import ProtectedRoutes from './Services/ProtectedRoutes';
 import HomePage from './Pages/HomePage';
+import ResetPassword from './Components/ResetPassword';
 
 function App() {
   return (
@@ -13,6 +14,9 @@ function App() {
       {/* Public Routes */}
       <Route path ="/auth" element={<Auth />} />
       
+      {/* Password reset route with token */}
+      <Route path="/user/reset/:id/:token" element={<ResetPassword />} />
+
       {/* Protected Routes */}
       <Route path="/" element={<ProtectedRoutes />}>
           {/* Home Page */}
