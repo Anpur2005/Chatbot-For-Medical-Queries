@@ -216,13 +216,6 @@ def forgot_password():
                             <td style="height:80px;">&nbsp;</td>
                         </tr>
                         <tr>
-                            <td style="text-align:center;">
-                              <a href="https://rakeshmandal.com" title="logo" target="_blank">
-                                <img width="60" src="https://i.imgur.com/uMlG0TP.png" title="logo" alt="logo">
-                              </a>
-                            </td>
-                        </tr>
-                        <tr>
                             <td style="height:20px;">&nbsp;</td>
                         </tr>
                         <tr>
@@ -256,11 +249,6 @@ def forgot_password():
                             <td style="height:20px;">&nbsp;</td>
                         </tr>
                         <tr>
-                            <td style="text-align:center;">
-                                <p style="font-size:14px; color:#455056bd; line-height:18px; margin:0 0 0;">&copy; <strong>www.rakeshmandal.com</strong></p>
-                            </td>
-                        </tr>
-                        <tr>
                             <td style="height:80px;">&nbsp;</td>
                         </tr>
                     </table>
@@ -275,10 +263,11 @@ def forgot_password():
     try:
         mail.send(msg)
         logging.info(f"Password reset email sent to {email}")
-        return jsonify({"message": "Password reset link sent to your email"})
+        print("Hi! I Sent mail!")
+        return jsonify({"message": "Password reset link sent to your email"}), 200
     except Exception as e:
         logging.error(f"Failed to send password reset email to {email}: {str(e)}")
-        return jsonify({"message": f"Failed to send password reset email: {str(e)}"})
+        return jsonify({"message": f"Failed to send password reset email: {str(e)}"}), 400
 
 @app.route('/resetPassword/<string:user_id>/<string:token>', methods=['POST'])
 def reset_password(user_id, token):
@@ -290,12 +279,12 @@ def reset_password(user_id, token):
 
     try:
         secret_key = app.config['JWT_SECRET_KEY']
-        decoded_token = jwt.decode(token, secret_key, algorithms=["HS256"])
+        decoded_token = pyjwt.decode(token, secret_key, algorithms=["HS256"])
         if decoded_token.get('user_id') != user_id:
             return jsonify({"message": "Invalid token"}), 400
-    except jwt.ExpiredSignatureError:
+    except pyjwt.ExpiredSignatureError:
         return jsonify({"message": "Token has expired"}), 400
-    except jwt.InvalidTokenError:
+    except pyjwt.InvalidTokenError:
         return jsonify({"message": "Invalid token"}), 400
 
     hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')

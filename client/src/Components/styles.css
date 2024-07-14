@@ -7,27 +7,36 @@
     box-sizing: border-box;
     font-family: 'Montserrat', sans-serif;
 }
-
+#root {
+    height: 100%;
+    width: 100%;
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+  }
+.AuthPage {
+    display: flex;
+}
 body{
-    background-color: #c9d6ff;
-    background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+    /* background-color: #c9d6ff; */
+    /* background: linear-gradient(to right, #e2e2e2, #c9d6ff); */
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    width:100%;
-    height: 100%;
 }
-
+.AuthPage {
+    display: flex;
+}
 .container{
     background-color: #fff;
     border-radius: 30px;
+    display: flex;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
     position: relative;
     overflow: hidden;
-    
-    min-width: 55%;
-    min-height: 75%;
+    min-width: 720px;
+    min-height: 480px;
 }
 
 .container p{
@@ -49,7 +58,7 @@ body{
 }
 
 .container button{
-    background-color: #512da8;
+    background-color: #000000;
     color: #fff;
     font-size: 12px;
     padding: 10px 45px;
@@ -163,9 +172,9 @@ body{
 }
 
 .toggle{
-    background-color: #512da8;
+    background-color: #000000;
     height: 100%;
-    background: linear-gradient(to right, #5c6bc0, #512da8);
+    background: linear-gradient(to right, #2d2d2d, #1e1e1e);
     color: #fff;
     position: relative;
     left: -100%;
@@ -209,4 +218,12 @@ body{
 
 .container.active .toggle-right{
     transform: translateX(200%);
+}
+.AuthPage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh; /* Ensure AuthPage takes full viewport height */
+    background: linear-gradient(to right, #e2e2e2, #c9d6ff); /* Example background */
 }

@@ -98,36 +98,31 @@ const Auth = () => {
 
       const handleForgotPassword = async (e) => {
         e.preventDefault();
-
         try {
-            // Make a POST request to the forgot password endpoint
-            const response = await axios.post("http://127.0.0.1:5000/forgotPassword", forgotPasswordInput);
-            
-            if (response.status === 200) {
-                alert("Verification link sent to your email. Please check your inbox.");
-                setForgetPasswordActive(false);
-                setIsActive(false);
-            }
+          const response = await axios.post("http://127.0.0.1:5000/forgotPassword", { email: forgotPasswordInput.email });
+          console.log("Hello world!")
+          if (response.status === 200) {
+            alert("Verification link sent to your email. Please check your inbox.");
+            setForgetPasswordActive(false);
+            setIsActive(false);
+          }
         } catch (error) {
-            // Check if the error has a response object
-            if (error.response) {
-                // Server responded with a status other than 200 range
-                console.error("Failed to send verification link:", error.response.data.message);
-                alert(error.response.data.message);
-            } else if (error.request) {
-                // Request was made but no response was received
-                console.error("No response received from the server:", error.request);
-                alert("No response received from the server. Please try again later.");
-            } else {
-                // Something else happened in setting up the request
-                console.error("Error in setting up the request:", error.message);
-                alert("An error occurred. Please try again later.");
-            }
+          if (error.response) {
+            console.error("Failed to send verification link:", error.response.data.message);
+            alert(error.response.data.message);
+          } else if (error.request) {
+            console.error("No response received from the server:", error.request);
+            alert("No response received from the server. Please try again later.");
+          } else {
+            console.error("Error in setting up the request:", error.message);
+            alert("An error occurred. Please try again later.");
+          }
         }
-    };
+      };
     
 
     return (
+      <div className="AuthPage">
         <div className={`container ${isActive ? 'active' : ''}`} id="container">
             {isForgetPasswordActive ? (
               <div className="form-container sign-up">
@@ -159,13 +154,13 @@ const Auth = () => {
                 <form onSubmit={handleRegister}>
                     <h1>Create Account</h1>
                     <div className="social-icons">
-                        <a href="#" className="icon"><FaGooglePlusG /></a>
+                        {/* <a href="#" className="icon"><FaGooglePlusG /></a>
                         <a href="#" className="icon"><FaFacebookF /></a>
                         <a href="#" className="icon"><FaGithub /></a>
-                        <a href="#" className="icon"><FaLinkedinIn /></a>
+                        <a href="#" className="icon"><FaLinkedinIn /></a> */}
                     </div>
 
-                    <span>or use your email for registration</span>
+                    <span>Use your email for registration</span>
                     {/* <input type="text" placeholder="Name" /> */}
                     
                     <input
@@ -220,12 +215,12 @@ const Auth = () => {
                 <form onSubmit={handleLogin}>
                     <h1>Sign In</h1>
                     <div className="social-icons">
-                        <a href="#" className="icon"><FaGooglePlusG /></a>
+                        {/* <a href="#" className="icon"><FaGooglePlusG /></a>
                         <a href="#" className="icon"><FaFacebookF /></a>
                         <a href="#" className="icon"><FaGithub /></a>
-                        <a href="#" className="icon"><FaLinkedinIn /></a>
+                        <a href="#" className="icon"><FaLinkedinIn /></a> */}
                     </div>
-                    <span>or use your email account</span>
+                    <span>Use your email account</span>
                     {/* <input type="email" placeholder="Email" /> */}
                     <input
                     type="email"
@@ -256,7 +251,7 @@ const Auth = () => {
                       })
                     }
                     />
-                    <p onClick={handleForgotPasswordClick}>Forgot Password?</p>
+                    <a onClick={handleForgotPasswordClick} style={{cursor:'pointer'}}>Forgot Password?</a>
                     <button type="submit">Sign In</button>
                 </form>
             </div>
@@ -283,6 +278,7 @@ const Auth = () => {
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     );
 };
