@@ -45,6 +45,11 @@ mail = Mail(app)
 
 def query_finetune(prompt: str):
     try:
+        gatePrompt = f"<|start_header_id|>system<|end_header_id|>I will now give you a question. This question should only be related to medical queries or advice. If it is related to medical queries or advice, then reply with 'True' and nothing else, no explanation, nothing, just 'True'. If it's not related to medical info, then just say 'False' and nothing else, no explanation, nothing, just 'False'. Just reply with either True or False and nothing else.<|eot_id|><|start_header_id|>user<|end_header_id|> This is the question: {prompt}<|eot_id|>"
+        gatedModel = Ollama(model="llama3")
+        gateResult = gatedModel.invoke(gatePrompt)
+        if gateResult=="False":
+            return "This query is not related to medical field. Please ask related queries."
         prompt = f"<|start_header_id|>system<|end_header_id|> Answer the question truthfully, you are a medical professional. If the question is not related to health or gibberish, reply that you are a medical professional and cannot answer it.<|eot_id|><|start_header_id|>user<|end_header_id|> This is the question: {prompt}<|eot_id|>"
         model = Ollama(model="medical-llama")
         response_text = model.invoke(prompt)

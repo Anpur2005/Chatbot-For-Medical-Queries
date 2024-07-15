@@ -27,7 +27,7 @@ const ResetPassword = () => {
     }
 
     try {
-      const res = await axios.post(`http://127.0.0.1:5000/resetPassword/${id}/${token}`, { newPassword: input.newPassword });
+      const res = await axios.post(`http://127.0.0.1:5000/resetPassword/${id}/${token}`, { newPassword: input.newPassword },{timeout: 0});
 
       if (res.status === 200) {
         alert("Password Changed Successfully");

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './styles.css';
-import { FaGooglePlusG, FaFacebookF, FaGithub, FaLinkedinIn } from 'react-icons/fa';
+// import { FaGooglePlusG, FaFacebookF, FaGithub, FaLinkedinIn } from 'react-icons/fa';
 import axios from "../Services/axiosInterceptor";
 import { useNavigate } from 'react-router-dom';
 
@@ -47,7 +47,7 @@ const Auth = () => {
     const [forgotPasswordInput, setForgotPasswordInput] = useState({
         email: ""
     });
-    const [registrationSuccess, setRegistrationSuccess] = useState(false);
+    // const [registrationSuccess, setRegistrationSuccess] = useState(false);
     
     // Function to handle login form submission
     const handleLogin = async (e) => {
@@ -80,12 +80,12 @@ const Auth = () => {
             user : input,
           });
           alert("User Registered Successfully");
-          setRegistrationSuccess(true);
+          // setRegistrationSuccess(true);
           setIsActive(false);
           // If registration is successful, navigate to the login page
           if (response.status === 201) {
             setTimeout(() => {
-              setRegistrationSuccess(false);
+              // setRegistrationSuccess(false);
               
             }, 3000);
           }
@@ -99,14 +99,17 @@ const Auth = () => {
       const handleForgotPassword = async (e) => {
         e.preventDefault();
         try {
-          const response = await axios.post("http://127.0.0.1:5000/forgotPassword", { email: forgotPasswordInput.email });
-          console.log("Hello world!")
-          if (response.status === 200) {
+          
+          const response1 = await axios.post("http://127.0.0.1:5000/forgotPassword", { email: forgotPasswordInput.email } , { timeout: 0});
+          console.log("response received")
+          
+          if (response1.status === 200) {
             alert("Verification link sent to your email. Please check your inbox.");
             setForgetPasswordActive(false);
             setIsActive(false);
           }
         } catch (error) {
+          console.log("there was an error in response")
           if (error.response) {
             console.error("Failed to send verification link:", error.response.data.message);
             alert(error.response.data.message);
@@ -251,7 +254,7 @@ const Auth = () => {
                       })
                     }
                     />
-                    <a onClick={handleForgotPasswordClick} style={{cursor:'pointer'}}>Forgot Password?</a>
+                    <p onClick={handleForgotPasswordClick} style={{cursor:'pointer'}}>Forgot Password?</p>
                     <button type="submit">Sign In</button>
                 </form>
             </div>

@@ -2,25 +2,36 @@ import React, { useState, useEffect, useRef } from 'react';
 import './Chatbot.css';
 import axios from 'axios';
 import chatboticon from '../assets/chatbot.png';
-import usericon from '../assets/user.png';
+import page1 from '../assets/Page1.png';
+import page2 from '../assets/Page2.png';
+import page3 from '../assets/Page3.png';import usericon from '../assets/user.png';
 import { Link } from 'react-router-dom';
 
 const Chatbot = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [sessionName, setSessionName] = useState("");
+  const [showInstModal, setShowInstModal] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [sessionActive, setSessionActive] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [sessions, setSessions] = useState([]);
   const [showChatHistoryModal, setShowChatHistoryModal] = useState(false);
   const [isSessionSelected, setIsSessionSelected] = useState(false);
-  const [currentSession, setCurrentSession] = useState(null);
+  // const [currentSession, setCurrentSession] = useState(null);
   const [tempSession, setTempSession] = useState(null);
   const messagesEndRef = useRef(null);
-
+  
+  
+  const handleCloseModal = () => {
+    setShowInstModal(false);
+  };
+  
   const name = localStorage.getItem('name');
   const firstName = name?.split(' ')[0];
+  useEffect(() => {
+    document.title = 'Astor AI: Chatbot';
+}, []);
 
   const handleSend = async (e) => {
     e.preventDefault();
@@ -124,6 +135,55 @@ const Chatbot = () => {
   }
   return (
     <div className="chatbot">
+
+      {showInstModal && (
+        <div style={{
+          position: 'fixed',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          backgroundColor: '#fff',
+          padding: '30px',
+          borderRadius: '12px',
+          boxShadow: '0 8px 16px rgba(0,0,0,0.2)',
+          zIndex: '1000',
+          maxWidth: '90%',
+          width: '800px', /* Adjusted width for a wider modal */
+          maxHeight: '80vh',
+          overflowY: 'auto',
+          textAlign: 'center', /* Center align content */
+        }}>
+          <div style={{ marginBottom: '20px' }}>
+            <h2 style={{ fontSize: '1.5em', marginBottom: '10px', color: '#242424' }}>Welcome to Astor!</h2>
+          </div>
+          <div style={{ marginBottom: '20px', textAlign: 'left' }}>
+            <h4 style={{ fontSize: '1.2em', marginBottom: '8px', color: '#333' }}>Step 1: Start a New Session</h4>
+            <p style={{ fontSize: '1em', lineHeight: '1.6', color: '#555' }}>
+              Click on "Start New Session" to begin your interaction with Astor's chatbot.
+            </p>
+            <img src={page1} alt="Step 1" style={{ width: '100%', maxWidth: '300px', height: 'auto', borderRadius: '10px', boxShadow: '0 0 10px rgba(0,0,0,0.2)' }} />
+          </div>
+          <div style={{ marginBottom: '20px', textAlign: 'left' }}>
+            <h4 style={{ fontSize: '1.2em', marginBottom: '8px', color: '#333' }}>Step 2: Enter the name of your session</h4>
+            <p style={{ fontSize: '1em', lineHeight: '1.6', color: '#555' }}>
+              Enter the name of your session and press 'Enter'.
+            </p>
+            <img src={page2} alt="Step 2" style={{ width: '100%', maxWidth: '300px', height: 'auto', borderRadius: '10px', boxShadow: '0 0 10px rgba(0,0,0,0.2)' }} />
+          </div>
+          <div style={{ marginBottom: '20px', textAlign: 'left' }}>
+            <h4 style={{ fontSize: '1.2em', marginBottom: '8px', color: '#333' }}>Step 3: Chat with the AI</h4>
+            <p style={{ fontSize: '1em', lineHeight: '1.6', color: '#555' }}>
+              Type your query in the text box and talk to the AI.
+            </p>
+            <img src={page3} alt="Step 3" style={{ width: '100%', maxWidth: '300px', height: 'auto', borderRadius: '10px', boxShadow: '0 0 10px rgba(0,0,0,0.2)' }} />
+          </div>
+          <div style={{ marginTop: '20px' }}>
+            <button onClick={handleCloseModal} style={{ backgroundColor: '#242424', color: '#fff', border: 'none', borderRadius: '8px', padding: '12px 25px', fontSize: '1em', cursor: 'pointer' }}>
+              Got It!
+            </button>
+          </div>
+        </div>
+      )}
       {showModal && (
         <div className="modal">
           <div className="modal-content">
@@ -143,7 +203,7 @@ const Chatbot = () => {
           </div>
         </div>
       )}
-      {showChatHistoryModal && (
+      {/* {showChatHistoryModal && (
         <div className="modal">
           <div className="modal-content">
             <h2>Select a Session</h2>
@@ -155,6 +215,23 @@ const Chatbot = () => {
               ))}
             </ul>
             <button onClick={() => setShowChatHistoryModal(false)}>Cancel</button>
+          </div>
+        </div>
+      )} */
+        showChatHistoryModal && (
+        <div className="modal" style={{ position: 'fixed', zIndex: '1', left: '0', top: '0', width: '100%', height: '100%', overflow: 'auto', backgroundColor: 'rgba(0,0,0,0.4)', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <div className="modal-content" style={{ backgroundColor: '#fefefe', padding: '30px', border: '1px solid #ccc', width: '80%', maxWidth: '600px', borderRadius: '10px', boxShadow: '0 4px 8px rgba(0,0,0,0.1)' }}>
+            <h2 style={{ textAlign: 'center', marginBottom: '25px', color: '#242424', fontSize: '1.5em' }}>Select a Session</h2>
+            <div style={{ maxHeight: '400px', overflowY: 'auto', marginBottom: '20px' }}>
+              {sessions.map((session) => (
+                <button key={session.sessionName} onClick={() => handleSessionSelect(session)} style={{ display: 'block', width: '100%', padding: '12px', marginBottom: '12px', backgroundColor: '#f0f0f0', border: '1px solid #ccc', borderRadius: '5px', cursor: 'pointer', color: '#242424' }}>
+                  {session.sessionName}
+                </button>
+              ))}
+            </div>
+            <div style={{ textAlign: 'center' }}>
+              <button onClick={() => setShowChatHistoryModal(false)} style={{ padding: '12px 24px', backgroundColor: '#242424', color: 'white', border: 'none', cursor: 'pointer', borderRadius: '5px', fontSize: '1em' }}>Cancel</button>
+            </div>
           </div>
         </div>
       )}

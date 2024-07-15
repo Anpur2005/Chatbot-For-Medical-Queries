@@ -1,40 +1,46 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './HomePage.css';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import usericon from '../assets/user.png';
 import chatboticon from '../assets/chatbot.png';
+
 const HomePage = () => {
+  
   const [showUserMenu, setShowUserMenu] = useState(false);
-  const [sessions, setSessions] = useState([]);
-  const [showChatHistoryModal, setShowChatHistoryModal] = useState(false);
+  // const [sessions, setSessions] = useState([]);
+  // const [showChatHistoryModal, setShowChatHistoryModal] = useState(false);
   const name = localStorage.getItem('name');
   const firstName = name?.split(' ')[0];
-  
-  const handleChatHistory = async () => {
-    const email = localStorage.getItem('email');
-    if (!email) {
-      console.error('No user email found in local storage.');
-      return;
-    }
+  useEffect(() => {
+    document.title = 'Astor AI';
+}, []);
+  // const handleChatHistory = async () => {
+  //   const email = localStorage.getItem('email');
+  //   if (!email) {
+  //     console.error('No user email found in local storage.');
+  //     return;
+  //   }
 
-    try {
-      const result = await axios.post(`http://127.0.0.1:5000/getSessions`, { email });
-      setSessions(result.data.sessions);
-      setShowUserMenu(false);
-      setShowChatHistoryModal(true);
-      console.log(result)
-    } catch (error) {
-      console.error('There was an error retrieving the sessions:', error);
-    }
-  };
+  //   try {
+  //     const result = await axios.post(`http://127.0.0.1:5000/getSessions`, { email });
+  //     setSessions(result.data.sessions);
+  //     setShowUserMenu(false);
+  //     setShowChatHistoryModal(true);
+  //     console.log(result)
+  //   } catch (error) {
+  //     console.error('There was an error retrieving the sessions:', error);
+  //   }
+  // };
+  
   const handleUserIconClick = () => {
     setShowUserMenu((prev) => !prev);
   };
   const handleLogout = () => {
     localStorage.clear();
   }
+  
   return (
     <div className="app">
       <header className="navbar">
@@ -63,7 +69,10 @@ const HomePage = () => {
         <div className="hero-content">
           <h2> Astor AI <br />A Chatbot For Medical Queries</h2>
           <p>Talk to our one-of-a-kind chatbot for 24/7 assistance in medical queries!</p>
-          <Link to="/chatbot" className="read-more">Talk to our chatbot</Link>
+          <Link to="/chatbot" className=""><button class="talkbutton">
+  <span class="talkbutton-content">Talk to our Chatbot </span>
+</button>
+</Link>
         </div>
       </section>
 
@@ -129,7 +138,7 @@ const HomePage = () => {
               </div>
             </div>
             <div className="team-member">
-              <h4>UVN Vardhan</h4>
+              <h4>Vardhan Udayagiri</h4>
               <div className="contact-info">
               <a href="https://github.com/vardhan-21505">GitHub</a>
               </div>
@@ -151,7 +160,7 @@ const HomePage = () => {
       </section>
 
       <footer>
-        <p>© 2024 Astor. All rights reserved.</p>
+        <p>© 2024 AstorAI. All rights reserved.</p>
       </footer>
     </div>
   );
