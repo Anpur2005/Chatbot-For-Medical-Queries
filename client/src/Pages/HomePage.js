@@ -69,9 +69,13 @@ const HomePage = () => {
         <div className="hero-content">
           <h2> Astor AI <br />A Chatbot For Medical Queries</h2>
           <p>Talk to our one-of-a-kind chatbot for 24/7 assistance in medical queries!</p>
-          <Link to="/chatbot" className=""><button class="talkbutton">
-  <span class="talkbutton-content">Talk to our Chatbot </span>
-</button>
+          <Link to="/chatbot" className="">
+          <button onClick={localStorage.setItem("mode",0)} class="talkbutton">
+            <span class="talkbutton-content">Talk to our Chatbot </span>
+          </button>
+          <button onClick={localStorage.setItem("mode",1)} class="talkbutton">
+            <span class="talkbutton-content">RAG Implementation </span>
+          </button>
 </Link>
         </div>
       </section>

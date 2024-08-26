@@ -40,6 +40,8 @@ const Chatbot = () => {
     setMessages((prevMessages) => [...prevMessages, { id: prevMessages.length + 1, text: input, type: "user" }]);
     setInput("");
 
+    if(localStorage.getItem('mode')===0)
+    {
     try {
       const result = await axios.post(`http://127.0.0.1:5000/queryFineTune`, {
         query_text: input,
@@ -48,6 +50,19 @@ const Chatbot = () => {
       setMessages((prevMessages) => [...prevMessages, { id: prevMessages.length + 2, text: result.data.response, type: "bot" }]);
     } catch (error) {
       setMessages((prevMessages) => [...prevMessages, { id: prevMessages.length + 2, text: error.response?.data?.error || 'There was an error processing your request.', type: "bot" }]);
+    }
+    }
+
+    else {
+      try {
+        const result = await axios.post(`http://127.0.0.1:5000/queryRAG`, {
+          query_text: input,
+        });
+  
+        setMessages((prevMessages) => [...prevMessages, { id: prevMessages.length + 2, text: result.data.response, type: "bot" }]);
+      } catch (error) {
+        setMessages((prevMessages) => [...prevMessages, { id: prevMessages.length + 2, text: error.response?.data?.error || 'There was an error processing your request.', type: "bot" }]);
+      }
     }
   };
 
